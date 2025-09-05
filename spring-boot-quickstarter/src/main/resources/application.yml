@@ -11,3 +11,13 @@ my:
   feature:
     helloSwitch: false
     closeMsg: "该接口正在维护，10分钟后再来吧！"
+
+codertqy:
+  sms:
+    ccp:
+      serverIp: app.cloopen.com
+      port: 8883
+      accountSId: 2c94811c9860a9c4019918e2cceb1f3b
+      accountToken: d0c4aacf5f2149cfa42563ed6a7b02c1
+      appId: 2c94811c9860a9c4019918e2ce671f42
+      templateId: 1
