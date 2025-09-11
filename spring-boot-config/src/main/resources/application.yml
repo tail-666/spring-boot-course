@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+#自定义初始化的值
+team:
+  leader: "codertqy"
+  phone: "17345678901"
+  age: 10
+  createDate: "2019-01-01"
+
