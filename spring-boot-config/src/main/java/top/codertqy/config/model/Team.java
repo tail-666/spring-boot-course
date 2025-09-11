@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Team {
     @Value("${team.leader}")
     @NotNull(message = "leader不能为空")
-    @Length(min = 2, max = 10, message = "leader长度必须在2-5之间")
+    @Length(min = 2, max = 10, message = "姓名长度必须在2-5之间")
     private String leader;
 
     @Value("${team.phone}")

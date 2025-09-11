@@ -5,6 +5,12 @@ server:
 team:
   leader: "codertqy"
   phone: "17345678901"
-  age: 10
-  createDate: "2019-01-01"
+  age: 3
+  createDate: "2011-09-11"
 
+#上传文件大小限制
+spring:
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB

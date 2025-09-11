@@ -13,7 +13,7 @@ class TeamTest {
     private Team team;
     @Test
     void testTeamLeader() {
-       log.info("team: {}",team);
+       log.info("addTeam: {}",team);
         Assertions.assertEquals("codertqy",team.getLeader());
     }
     @Test

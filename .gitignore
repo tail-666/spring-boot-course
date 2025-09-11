@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# 忽略这个文件
+spring-boot-config/src/main/resources/aliyun-oss.properties
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

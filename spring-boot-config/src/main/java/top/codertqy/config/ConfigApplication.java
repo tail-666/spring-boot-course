@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @Author: 27258
- * @Date: 2025/9/11
+ * @ Author: 27258
+ * @ Date: 2025/9/11
  */
 @SpringBootApplication
 public class ConfigApplication {
