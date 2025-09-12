@@ -1,4 +1,4 @@
-package top.codertqy.config.service.imple;
+package top.codertqy.config.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -50,8 +50,11 @@ public class OssServiceImpl implements OssService {
             // 创建OSS客户端
             OSS ossClient = new OSSClientBuilder().build(endpoint, accessKey, secretKey);
             // 创建文件元信息,设置文件类型为jpg,默认为application/octet-stream（二进制流）浏览器打开会下载而非预览
+            // 让图片可以预览
             ObjectMetadata meta = new ObjectMetadata();
-            meta.setContentType("image/jpg");
+            meta.setContentType(getContentType(originalFilename));
+            meta.setContentDisposition("inline"); // 明确不清除下载行为
+
             // 拼接最终文件在服务器的路径如： img/xxx.jpg
             String uploadPath = dir + newFileName;
             InputStream inputStream;
@@ -71,5 +74,22 @@ public class OssServiceImpl implements OssService {
         }
 
         return "上传失败";
+    }
+    private String getContentType(String filename) {
+        if (filename == null) return "application/octet-stream";
+        String lowercase = filename.toLowerCase();
+        if (lowercase.endsWith(".jpg") || lowercase.endsWith(".jpeg")) {
+            return "image/jpeg";
+        } else if (lowercase.endsWith(".png")) {
+            return "image/png";
+        } else if (lowercase.endsWith(".gif")) {
+            return "image/gif";
+        } else if (lowercase.endsWith(".webp")) {
+            return "image/webp";
+        } else if (lowercase.endsWith(".svg")) {
+            return "image/svg+xml";
+        } else {
+            return "application/octet-stream";
+        }
     }
 }
