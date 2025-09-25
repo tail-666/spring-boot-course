@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import net.datafaker.Faker;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import top.codertqy.boot.mp.pojo.UserAccount;
+import top.codertqy.boot.mp.entity.UserAccount;
 import top.codertqy.boot.mp.service.UserAccountService;
 
 import java.util.List;

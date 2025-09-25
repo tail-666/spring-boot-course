@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import top.codertqy.boot.mp.pojo.UserAccount;
+import top.codertqy.boot.mp.entity.UserAccount;
 import top.codertqy.boot.mp.service.UserAccountService;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class UserAccountController {
      */
     @PostMapping
     public ResponseEntity<UserAccount> createUser(@Valid @RequestBody UserAccount userAccount) {
-        boolean saved = userAccountService.save(userAccount);
+        boolean saved = userAccountService.createUser(userAccount);
         // 创建用户账户
         return saved? ResponseEntity.ok(userAccount) : ResponseEntity.badRequest().build();
     }

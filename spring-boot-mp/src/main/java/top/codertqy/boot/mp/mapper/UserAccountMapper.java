@@ -2,7 +2,7 @@ package top.codertqy.boot.mp.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import top.codertqy.boot.mp.pojo.UserAccount;
+import top.codertqy.boot.mp.entity.UserAccount;
 
 /**
  * @Author: 27258

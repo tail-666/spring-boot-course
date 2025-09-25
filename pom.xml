@@ -12,6 +12,8 @@
         <module>spring-boot-quickstarter</module>
         <module>spring-boot-config</module>
         <module>spring-boot-mp</module>
+        <module>spring-boot-exception</module>
+        <module>spring-boot-redis</module>
     </modules>
 
     <properties>
@@ -22,6 +24,7 @@
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <mysql.version>8.3.0</mysql.version>
         <datafaker.version>2.2.2</datafaker.version>
+        <fastjson2.version>2.0.47</fastjson2.version>
     </properties>
 
     <dependencies>
@@ -49,6 +52,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -75,6 +79,12 @@
                 <groupId>net.datafaker</groupId>
                 <artifactId>datafaker</artifactId>
                 <version>${datafaker.version}</version>
+            </dependency>
+            <!--       安装fastjson2依赖 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
