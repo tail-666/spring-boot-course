@@ -46,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.save(user);
     }
 
-    // 可选：根据 phone 查询用户并返回 VO
+    // 根据 phone 查询用户并返回 VO
     public UserResponse getUserVOByPhone(String phone) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone", phone);

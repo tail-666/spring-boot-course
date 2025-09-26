@@ -14,6 +14,7 @@
         <module>spring-boot-mp</module>
         <module>spring-boot-exception</module>
         <module>spring-boot-redis</module>
+        <module>spring-boot-filter-interceptor</module>
     </modules>
 
     <properties>
