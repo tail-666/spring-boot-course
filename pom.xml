@@ -25,6 +25,8 @@
         <mysql.version>8.3.0</mysql.version>
         <datafaker.version>2.2.2</datafaker.version>
         <fastjson2.version>2.0.47</fastjson2.version>
+        <cloopen.version>1.0.4</cloopen.version>
+
     </properties>
 
     <dependencies>
@@ -85,6 +87,12 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
+            </dependency>
+<!--            容联云-->
+            <dependency>
+                <groupId>com.cloopen</groupId>
+                <artifactId>java-sms-sdk</artifactId>
+                <version>${cloopen.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

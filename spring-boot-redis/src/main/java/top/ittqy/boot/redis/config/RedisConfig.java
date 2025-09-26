@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Redis配置类,配置RedisTemplate和自定义序列化器
  *
- * @author moqi
+ * @author tqy
  */
 @Configuration
 public class RedisConfig {

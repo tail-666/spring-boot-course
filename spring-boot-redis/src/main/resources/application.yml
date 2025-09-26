@@ -2,6 +2,11 @@ server:
   port: 8888
 
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_boot_user?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: tian3218
   data:
     redis:
 #      服务器地址
@@ -27,3 +32,13 @@ spring:
           min-idle: 0
 #          空闲连接检测中期
           time-between-eviction-runs: 60s
+
+codertqy:
+  sms:
+    ccp:
+      serverIp: app.cloopen.com
+      port: 8883
+      accountSId: 2c94811c9860a9c4019918e2cceb1f3b
+      accountToken: d0c4aacf5f2149cfa42563ed6a7b02c1
+      appId: 2c94811c9860a9c4019918e2ce671f42
+      templateId: 1
