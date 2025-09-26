@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.ittqy.filter_interceptor.filter.MyFilter;
-import top.ittqy.filter_interceptor.filter.YourFilter;
+import top.ittqy.filter_interceptor.filter.RateLimitFilter;
 
 /**
  * @Author: 27258
@@ -14,24 +13,33 @@ import top.ittqy.filter_interceptor.filter.YourFilter;
 @Configuration
 @AllArgsConstructor
 public class FilterConfig {
-    private final MyFilter myFilter;
-    private final YourFilter yourFilter;
+    // private final MyFilter myFilter;
+    // private final YourFilter yourFilter;
+    private final RateLimitFilter rateLimitFilter;
 
+    // @Bean
+    // public FilterRegistrationBean<MyFilter> MyFilterRegistrationBean() {
+    //     FilterRegistrationBean<MyFilter> registrationBean = new FilterRegistrationBean<>();
+    //     registrationBean.setFilter(myFilter);
+    //     registrationBean.setOrder(3);
+    //     registrationBean.addUrlPatterns("/api/test");
+    //     return registrationBean;
+    // }
+    //
+    // @Bean
+    // public FilterRegistrationBean<YourFilter> YourFilterRegistrationBean() {
+    //     FilterRegistrationBean<YourFilter> registrationBean = new FilterRegistrationBean<>();
+    //     registrationBean.setFilter(yourFilter);
+    //     registrationBean.setOrder(1);
+    //     registrationBean.addUrlPatterns("/api/test");
+    //     return registrationBean;
+    // }
     @Bean
-    public FilterRegistrationBean<MyFilter> MyFilterRegistrationBean() {
-        FilterRegistrationBean<MyFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(myFilter);
-        registrationBean.setOrder(3);
-        registrationBean.addUrlPatterns("/api/test");
-        return registrationBean;
-    }
-
-    @Bean
-    public FilterRegistrationBean<YourFilter> YourFilterRegistrationBean() {
-        FilterRegistrationBean<YourFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(yourFilter);
+    public FilterRegistrationBean<RateLimitFilter> RateLimitFilterRegistrationBean() {
+        FilterRegistrationBean<RateLimitFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(rateLimitFilter);
         registrationBean.setOrder(1);
-        registrationBean.addUrlPatterns("/api/test");
+        registrationBean.addUrlPatterns("/api/pay/*");
         return registrationBean;
     }
 }
