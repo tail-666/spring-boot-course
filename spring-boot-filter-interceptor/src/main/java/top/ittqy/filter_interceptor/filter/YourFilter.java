@@ -2,7 +2,6 @@ package top.ittqy.filter_interceptor.filter;
 
 import jakarta.servlet.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
  * @Author: 27258
  * @Date: 2025/9/26
  */
-@Component
+// @Component
 @Slf4j
 public class YourFilter  implements Filter {
     @Override

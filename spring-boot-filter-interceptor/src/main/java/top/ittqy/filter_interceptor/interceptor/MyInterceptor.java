@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  * @Author: 27258
  * @Date: 2025/9/26
  */
-@Component
+// @Component
 @Slf4j
 public class MyInterceptor implements HandlerInterceptor {
     @Override
