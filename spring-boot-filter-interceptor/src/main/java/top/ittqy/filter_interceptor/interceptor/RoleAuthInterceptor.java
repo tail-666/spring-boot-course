@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @Author: 27258
  * @Date: 2025/10/8
- * @Description: 认证与角色权限拦截器
+ * @Description: JWT认证与角色权限拦截器
  */
 @Slf4j
 @Component

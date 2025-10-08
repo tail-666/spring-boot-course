@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * @Author: 27258
  * @Date: 2025/10/8
+ * @Description: 业务日志拦截器
  */
 @Slf4j
 @ControllerAdvice

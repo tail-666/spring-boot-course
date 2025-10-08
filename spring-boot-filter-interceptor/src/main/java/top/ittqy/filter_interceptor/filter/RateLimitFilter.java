@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author: 27258
  * @Date: 2025/9/26
+ * @Description: 限流过滤器（依赖redis）
  */
 
 @Component

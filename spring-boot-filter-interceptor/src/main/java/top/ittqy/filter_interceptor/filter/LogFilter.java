@@ -39,7 +39,7 @@ public class LogFilter implements Filter {
 
         String paramStr = !params.isEmpty() ? params.substring(0, params.length() - 1) : "";
 
-        log.info("请求开始 - URL: {}, 方法: {}, IP: {}, 参数: {}", url, method, ip, paramStr);
+        log.info("请求开始 - 方法:URL: {},  {}, IP: {}, 参数: {}", url, method, ip, paramStr);
 
         // 2. 放行请求（必须调用，否则请求会被拦截）
         long startTime = System.currentTimeMillis();

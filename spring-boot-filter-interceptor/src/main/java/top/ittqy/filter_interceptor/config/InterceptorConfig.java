@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.ittqy.filter_interceptor.interceptor.BusinessLogInterceptor;
 import top.ittqy.filter_interceptor.interceptor.TimeStatInterceptor;
+import top.ittqy.filter_interceptor.interceptor.ParamValidateInterceptor;
 
 /**
  * @Author: 27258
@@ -27,7 +28,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     private final TimeStatInterceptor timeStatInterceptor;
     private final BusinessLogInterceptor businessLogInterceptor;
-    // private final ParamValidateInterceptor paramValidateInterceptor;
+    private final ParamValidateInterceptor paramValidateInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册耗时统计拦截器
@@ -45,11 +46,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .order(2);
 
 
-        // // 注册参数校验拦截器
-        // registry.addInterceptor(paramValidateInterceptor)
-        //         .addPathPatterns("/api/*")
-        //         // 优先于权限拦截器
-        //         .order(0);
+        // 注册参数校验拦截器
+        registry.addInterceptor(paramValidateInterceptor)
+                .addPathPatterns("/api/*")
+                // 优先于权限拦截器
+                .order(0);
     }
 
 }
