@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>📊 服务器监控 + 💬 每日一言</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h2 {
+            margin-bottom: 15px;
+            color: #444;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .data-box {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+            height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .btn-group {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .btn-connect {
+            background: #28a745;
+            color: white;
+        }
+        .btn-connect:hover:not(:disabled) {
+            background: #218838;
+        }
+        .btn-disconnect {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-disconnect:hover:not(:disabled) {
+            background: #c82333;
+        }
+        .btn-action {
+            background: #007bff;
+            color: white;
+        }
+        .btn-action:hover:not(:disabled) {
+            background: #0056b3;
+        }
+        .btn-clear {
+            background: #ffc107;
+            color: #333;
+        }
+        .btn-clear:hover:not(:disabled) {
+            background: #e0a800;
+        }
+        .status {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .alert {
+            color: #dc3545;
+        }
+        .success {
+            color: #28a745;
+        }
+        .warning {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 监控卡片 -->
+    <div class="card">
+        <h2>🖥️ 服务器监控</h2>
+        <div class="data-box" id="monitorData">等待连接...</div>
+        <div class="btn-group">
+            <button id="monitorConnectBtn" class="btn-connect" onclick="connectMonitor()">🔌 连接</button>
+            <button id="monitorDisconnectBtn" class="btn-disconnect" onclick="disconnectMonitor()" disabled>🔌 断开</button>
+            <button onclick="clearMonitor()" class="btn-clear">🗑️ 清空消息</button>
+        </div>
+        <div class="status" id="monitorStatus">未连接</div>
+    </div>
+
+    <!-- 一言卡片 -->
+    <div class="card">
+        <h2>💬 每日一言</h2>
+        <div class="data-box" id="wordsData">等待连接...</div>
+        <div class="btn-group">
+            <button id="wordsConnectBtn" class="btn-connect" onclick="connectWords()">🔌 连接</button>
+            <button id="wordsDisconnectBtn" class="btn-disconnect" onclick="disconnectWords()" disabled>🔌 断开</button>
+           <button onclick="clearWords()" class="btn-clear">🗑️ 清空消息</button>
+        </div>
+        <div class="status" id="wordsStatus">未连接</div>
+    </div>
+</div>
+
+<script>
+    let monitorSocket = null;
+    let wordsSocket = null;
+
+    // ==================== 监控 WebSocket ====================
+    function connectMonitor() {
+        if (monitorSocket && monitorSocket.readyState === WebSocket.OPEN) {
+            logMonitor("⚠️ 已连接，无需重复连接");
+            return;
+        }
+
+        monitorSocket = new WebSocket("ws://localhost:8080/ws/monitor");
+
+        monitorSocket.onopen = () => {
+            logMonitor("✅ 连接成功");
+            updateMonitorStatus("已连接", "success");
+            document.getElementById("monitorConnectBtn").disabled = true;
+            document.getElementById("monitorDisconnectBtn").disabled = false;
+        };
+
+        monitorSocket.onmessage = (event) => {
+            logMonitor(event.data);
+        };
+
+        monitorSocket.onclose = () => {
+            logMonitor("❌ 连接已关闭");
+            updateMonitorStatus("已断开", "warning");
+            document.getElementById("monitorConnectBtn").disabled = false;
+            document.getElementById("monitorDisconnectBtn").disabled = true;
+        };
+
+        monitorSocket.onerror = (error) => {
+            logMonitor(`❌ 错误: ${error.message}`);
+            updateMonitorStatus("错误", "alert");
+        };
+    }
+
+    function disconnectMonitor() {
+        if (monitorSocket) {
+            monitorSocket.close();
+            monitorSocket = null;
+            logMonitor("🔌 已手动断开连接");
+        } else {
+            logMonitor("⚠️ 当前无连接可断开");
+        }
+    }
+
+
+    function logMonitor(msg) {
+        const box = document.getElementById("monitorData");
+        const time = new Date().toLocaleTimeString();
+        box.textContent += `[${time}] ${msg}\n`;
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function clearMonitor() {
+        document.getElementById("monitorData").textContent = "";
+        logMonitor("🗑️ 消息已清空");
+    }
+
+    function updateMonitorStatus(text, cls) {
+        const el = document.getElementById("monitorStatus");
+        el.textContent = text;
+        el.className = "status " + cls;
+    }
+
+    // ==================== 一言 WebSocket ====================
+    function connectWords() {
+        if (wordsSocket && wordsSocket.readyState === WebSocket.OPEN) {
+            logWords("⚠️ 已连接，无需重复连接");
+            return;
+        }
+
+        wordsSocket = new WebSocket("ws://localhost:8080/ws/words");
+
+        wordsSocket.onopen = () => {
+            logWords("✅ 连接成功");
+            updateWordsStatus("已连接", "success");
+            document.getElementById("wordsConnectBtn").disabled = true;
+            document.getElementById("wordsDisconnectBtn").disabled = false;
+        };
+
+        wordsSocket.onmessage = (event) => {
+            logWords(event.data);
+        };
+
+        wordsSocket.onclose = () => {
+            logWords("❌ 连接已关闭");
+            updateWordsStatus("已断开", "warning");
+            document.getElementById("wordsConnectBtn").disabled = false;
+            document.getElementById("wordsDisconnectBtn").disabled = true;
+        };
+
+        wordsSocket.onerror = (error) => {
+            logWords(`❌ 错误: ${error.message}`);
+            updateWordsStatus("错误", "alert");
+        };
+    }
+
+    function disconnectWords() {
+        if (wordsSocket) {
+            wordsSocket.close();
+            wordsSocket = null;
+        } else {
+            logWords("⚠️ 当前无连接可断开");
+        }
+    }
+
+
+    function logWords(msg) {
+        const box = document.getElementById("wordsData");
+        const time = new Date().toLocaleTimeString();
+        box.textContent += `[${time}] ${msg}\n`;
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function clearWords() {
+        document.getElementById("wordsData").textContent = "";
+        logWords("🗑️ 消息已清空");
+    }
+
+    function updateWordsStatus(text, cls) {
+        const el = document.getElementById("wordsStatus");
+        el.textContent = text;
+        el.className = "status " + cls;
+    }
+
+    // ==================== 页面加载初始化 ====================
+    window.onload = () => {
+        // 初始按钮状态
+        document.getElementById("monitorDisconnectBtn").disabled = true;
+        document.getElementById("wordsDisconnectBtn").disabled = true;
+    };
+</script>
+</body>
+</html>
