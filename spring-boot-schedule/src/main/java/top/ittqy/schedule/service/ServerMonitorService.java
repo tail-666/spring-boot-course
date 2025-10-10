@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * @Author: 27258
  * @Date: 2025/10/10
+ * @Description: 服务器监控服务
  */
 @Slf4j
 @Service
@@ -43,7 +44,7 @@ public class ServerMonitorService {
     /**
      * 服务器监控任务，每隔5分钟执行一次
      */
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "00 04 16 * * ?")
     public void monitorServerHealth() {
         try {
             // 1. 获取CPU使用率（%）

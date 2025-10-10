@@ -8,6 +8,7 @@ import top.ittqy.schedule.job.ExportUserAccount;
 /**
  * @Author: 27258
  * @Date: 2025/10/10
+ * @Description: 定时任务，从数据库中查询数据并导出excel
  */
 @Configuration
 public class QuartzConfig {
@@ -24,7 +25,7 @@ public class QuartzConfig {
     @Bean
     public Trigger exportTaskTrigger() {
         // 每周日 18:30:00
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0 05 9 ? * *");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("40 04 16 ? * *");
         // 返回任务触发器
         return TriggerBuilder.newTrigger().forJob(exportTaskDetail()).withIdentity("ExportJob").withSchedule(scheduleBuilder).build();
     }

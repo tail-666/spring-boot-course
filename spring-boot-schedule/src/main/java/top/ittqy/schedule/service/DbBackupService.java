@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * @Author: 27258
  * @Date: 2025/10/10
+ * @Description: 数据库备份
  */
 
 @Slf4j
@@ -27,7 +28,7 @@ public class DbBackupService {
     /**
      * 每日凌晨2:00执行备份
      */
-    @Scheduled(cron = "0 25 8 * * ?")
+    @Scheduled(cron = "40 03 16 * * ?")
     public void backupWithHutool() {
         String host = dbConfig.getHost();
         String user = dbConfig.getUsername();
