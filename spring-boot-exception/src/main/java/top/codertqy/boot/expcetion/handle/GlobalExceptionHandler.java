@@ -14,6 +14,7 @@ import top.codertqy.boot.expcetion.exception.ServerException;
 public class GlobalExceptionHandler {
     /**
      * 自定义统一处理服务异常
+     * 其他的不需要throw，会自动触发，只有自定义的异常才需要自己抛出
      * @param e
      * @return
      */

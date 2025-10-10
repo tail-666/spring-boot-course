@@ -15,6 +15,7 @@
         <module>spring-boot-exception</module>
         <module>spring-boot-redis</module>
         <module>spring-boot-filter-interceptor</module>
+        <module>spring-boot-schedule</module>
     </modules>
 
     <properties>
